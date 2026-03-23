@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ya Salam Traiteur Chez Nogaye</title>
+  <meta name="description" content="Ya Salam Traiteur Chez Nogaye propose des plats sénégalais et jus locaux. Commandez facilement sur WhatsApp.">
+  <link rel="icon" href="logo-resto.jpeg" type="image/png">
+
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- BOOTSTRAP -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- BOOTSTRAP ICONS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --orange: #d35400;
+      --orange-light: #e8713a;
+      --orange-pale: #fff3ea;
+      --cream: #fffaf3;
+      --dark: #1a1008;
+      --gray: #7f8c8d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: var(--cream);
+      font-family: 'Poppins', sans-serif;
+      padding-bottom: 0;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 40px 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: -60px;
+      width: 220px; height: 220px;
+      background: var(--orange);
+      border-radius: 50%;
+      opacity: 0.12;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 20px; right: -40px;
+      width: 160px; height: 160px;
+      background: var(--orange-light);
+      border-radius: 50%;
+      opacity: 0.10;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      color: #f5c842;
+      font-weight: 900;
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    header h3 {
+      font-size: 1.1rem;
+      color: #ccc;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .slogan-bar {
+      background: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 16px 20px;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .slogan-bar img {
+      height: 80px;
+      width: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.4);
+    }
+
+    .slogan-bar p {
+      font-size: 1.1rem;
+      font-style: italic;
+      margin: 0;
+    }
+
+    /* ===== BADGE JOUR ACTUEL ===== */
+    .today-banner {
+      background: linear-gradient(135deg, #d35400, #e8713a);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: none;
+    }
+
+    /* ===== NAV JOURS ===== */
+    .day-nav {
+      background: white;
+      border-bottom: 2px solid #f0e6da;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 10px;
+    }
+
+    .day-nav .nav {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      gap: 4px;
+      padding: 10px 0;
+    }
+
+    .day-nav .nav::-webkit-scrollbar { display: none; }
+
+    .day-nav .nav-link {
+      color: var(--gray);
+      font-weight: 500;
+      font-size: 0.88rem;
+      border-radius: 20px;
+      padding: 6px 14px;
+      white-space: nowrap;
+      border: 1.5px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .day-nav .nav-link:hover {
+      background: var(--orange-pale);
+      color: var(--orange);
+    }
+
+    .day-nav .nav-link.active-day {
+      background: var(--orange);
+      color: white;
+      border-color: var(--orange);
+    }
+
+    .day-nav .nav-link.today-link {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    /* ===== INTRO ===== */
+    .intro-section {
+      text-align: center;
+      padding: 36px 20px 10px;
+    }
+
+    .intro-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--orange);
+      font-weight: 700;
+    }
+
+    .intro-section p { color: #666; font-size: 0.95rem; }
+
+    /* ===== CAROUSEL ===== */
+    .carousel-item {
+      position: relative;
+      height: 420px;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .carousel-item .bg-blur {
+      position: absolute;
+      inset: -20px;
+      background-size: cover;
+      background-position: center;
+      filter: blur(22px);
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    .carousel-item img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* ===== MENU ===== */
+    .menu-section { margin-top: 40px; }
+
+    .menu-day {
+      margin-bottom: 48px;
+      scroll-margin-top: 70px;
+    }
+
+    .menu-day h2 {
+      background: var(--orange);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-day.today-section h2 {
+      background: var(--dark);
+    }
+
+    .menu-day.today-section h2::after {
+      content: "Aujourd'hui";
+      background: #f5c842;
+      color: var(--dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-left: auto;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== CARD PLAT ===== */
+    .menu-item {
+      background: white;
+      border: 1px solid #f0e6da;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.25s, box-shadow 0.25s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(211,84,0,0.12);
+    }
+
+    .menu-item h5 {
+      margin-bottom: 6px;
+      color: #222;
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .menu-item .price {
+      color: var(--orange);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .menu-item .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== BOUTONS ===== */
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+      border-radius: 30px;
+      padding: 7px 14px;
+      border: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.2s;
+    }
+
+    .btn-whatsapp:hover {
+      background: #1ebe5d;
+      color: white;
+    }
+
+    .btn-cart {
+      background: var(--orange-pale);
+      color: var(--orange);
+      border-radius: 30px;
+      padding: 7px 14px;
+      border: 1.5px solid #f0c9a8;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-cart:hover {
+      background: var(--orange);
+      color: white;
+      border-color: var(--orange);
+    }
+
+    /* ===== PANIER FLOTTANT ===== */
+    #cart-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 22px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      box-shadow: 0 6px 20px rgba(211,84,0,0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1050;
+      transition: transform 0.2s, opacity 0.2s;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #cart-fab.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #cart-fab:hover { transform: scale(1.05); }
+
+    #cart-badge {
+      background: white;
+      color: var(--orange);
+      border-radius: 50%;
+      width: 22px; height: 22px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== MODAL PANIER ===== */
+    #cart-modal .modal-header {
+      background: var(--orange);
+      color: white;
+    }
+
+    #cart-modal .modal-header .btn-close { filter: invert(1); }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0e6da;
+      font-size: 0.9rem;
+    }
+
+    .cart-item .remove-btn {
+      background: none;
+      border: none;
+      color: #e74c3c;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0 6px;
+    }
+
+    /* ===== JUS ===== */
+    .jus-card {
+      background: white;
+      border: 1px solid #f0e6da;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      transition: transform 0.25s;
+    }
+
+    .jus-card:hover { transform: translateY(-3px); }
+
+    .jus-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--dark);
+      color: #ccc;
+    }
+
+    .footer h4, .footer h5 { color: #f5c842; }
+    .footer a { color: #ccc; }
+    .footer a:hover { color: #f5c842; }
+  </style>
+</head>
+
+<body>
+
+  <!-- BANNER JOUR ACTUEL -->
+  <div class="today-banner" id="todayBanner"></div>
+
+  <!-- HEADER -->
+  <header>
+    <h1>Ya Salam Traiteur</h1>
+    <h3>Chez Nogaye</h3>
+    <div class="slogan-bar">
+      <img src="logo-resto.jpeg" alt="Logo Ya Salam Traiteur">
+      <p>« C'est le bon goût qui fait la différence »</p>
+    </div>
+  </header>
+
+  <!-- NAV JOURS -->
+  <nav class="day-nav">
+    <div class="container">
+      <ul class="nav" id="dayNav">
+        <li class="nav-item"><a class="nav-link" href="#lundi" data-day="1">Lundi</a></li>
+        <li class="nav-item"><a class="nav-link" href="#mardi" data-day="2">Mardi</a></li>
+        <li class="nav-item"><a class="nav-link" href="#mercredi" data-day="3">Mercredi</a></li>
+        <li class="nav-item"><a class="nav-link" href="#jeudi" data-day="4">Jeudi</a></li>
+        <li class="nav-item"><a class="nav-link" href="#vendredi" data-day="5">Vendredi</a></li>
+        <li class="nav-item"><a class="nav-link" href="#jus" data-day="0">🥤 Jus</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- INTRO -->
+  <div class="intro-section container">
+    <h2>Plats sénégalais & plats européens ( Pas de plat fixe pour un jour) </h2>
+    <p>Disponible du lundi au vendredi &nbsp;·&nbsp; Commandez sur WhatsApp</p>
+  </div>
+
+  <!-- CAROUSEL -->
+  <div id="platsSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#platsSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Plat 1"></button>
+      <button type="button" data-bs-target="#platsSlider" data-bs-slide-to="1" aria-label="Plat 2"></button>
+      <button type="button" data-bs-target="#platsSlider" data-bs-slide-to="2" aria-label="Plat 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="bg-blur" style="background-image: url('WhatsApp Image 2025-11-13 at 13.28.11.jpeg');"></div>
+        <img src="Thiebou-dieune.jpeg" class="d-block" alt="Plat du jour 1">
+      </div>
+      <div class="carousel-item">
+        <div class="bg-blur" style="background-image: url('WhatsApp Image 2025-11-13 at 13.28.17 (1).jpeg');"></div>
+        <img src="Sauce-frites-poulet.jpeg" class="d-block" alt="Plat du jour 2">
+      </div>
+      <div class="carousel-item">
+        <div class="bg-blur" style="background-image: url('WhatsApp Image 2025-11-13 at 13.28.17.jpeg');"></div>
+        <img src="Thiebou-yapp.jpeg" class="d-block" alt="Plat du jour 3">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#platsSlider" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Précédent</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#platsSlider" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Suivant</span>
+    </button>
+  </div>
+
+  <!-- MENUS -->
+  <div class="container menu-section">
+
+    <!-- LUNDI -->
+    <div class="menu-day" id="lundi" data-day="1">
+      <h2><i class="bi bi-calendar3"></i> Lundi</h2>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiep Dieune blanc sauce nététou</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thiep%20Dieune%20blanc%20sauce%20n%C3%A9t%C3%A9tou" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiep Dieune blanc sauce nététou', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Domoda Yapp</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Domoda%20Yapp" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Domoda Yapp', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Domoda Boulettes</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Domoda%20Boulettes" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Domoda Boulettes', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Brokhé Yapp</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Brokh%C3%A9%20Yapp" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Brokhé Yapp', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>C'est Bon</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20C%27est%20Bon" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('C\'est Bon', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Riz Cantonais</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Riz%20Cantonais" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Riz Cantonais', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Pilon de poulet grillé avec frites</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Pilon%20de%20poulet%20grill%C3%A9%20avec%20frites" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Pilon de poulet grillé avec frites', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARDI -->
+    <div class="menu-day" id="mardi" data-day="2">
+      <h2><i class="bi bi-calendar3"></i> Mardi</h2>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiep Dieune rouge avec Diaga</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thiep%20Dieune%20rouge%20avec%20Diaga" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiep Dieune rouge avec Diaga', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiep Poulet et Viande</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thiep%20Poulet%20et%20Viande" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiep Poulet et Viande', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Mbakhalou Saloum</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Mbakhalou%20Saloum" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Mbakhalou Saloum', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiou kary Poulet et Viande</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thiou%20kary%20Poulet%20et%20Viande" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiou kary Poulet et Viande', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Souloukhou</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Souloukhou" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Souloukhou', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Soupou yélle</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Soupou%20y%C3%A9lle" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Soupou yélle', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Poisson firir avec sauce crevettes</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Poisson%20firir%20avec%20sauce%20crevettes" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Poisson firir avec sauce crevettes', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MERCREDI -->
+    <div class="menu-day" id="mercredi" data-day="3">
+      <h2><i class="bi bi-calendar3"></i> Mercredi</h2>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiep Guedj blanc</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thiep%20Guedj%20blanc" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiep Guedj blanc', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Mafé Viande</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Maf%C3%A9%20Viande" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Mafé Viande', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Dakhine Yapp</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Dakhine%20Yapp" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Dakhine Yapp', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiou tir Poisson</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thiou%20tir%20Poisson" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiou tir Poisson', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Yassa Poulet</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Yassa%20Poulet" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Yassa Poulet', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Yassa Poisson</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Yassa%20Poisson" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Yassa Poisson', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Vermicelles Poulet</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Vermicelles%20Poulet" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Vermicelles Poulet', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Sauté d'agneau salade ordinaire</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Saut%C3%A9%20d%27agneau%20salade%20ordinaire" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Sauté d\'agneau salade ordinaire', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JEUDI -->
+    <div class="menu-day" id="jeudi" data-day="4">
+      <h2><i class="bi bi-calendar3"></i> Jeudi</h2>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiep dieune blanc</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thiep%20dieune%20blanc" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiep dieune blanc', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Paella avec fruits de mer</h5>
+              <p class="price mb-0">3 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Paella%20avec%20fruits%20de%20mer" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Paella avec fruits de mer', 3000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Soupou Kandia</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Soupou%20Kandia" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Soupou Kandia', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Attiéké Poulet + alloco</h5>
+              <p class="price mb-0">3 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Attiek%C3%A9%20Poulet%20%2B%20alloco" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Attiéké Poulet + alloco', 3000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Attiéké Poisson</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Attiek%C3%A9%20Poisson" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Attiéké Poisson', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiéré Bassé Viande et Poulet</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thi%C3%A9r%C3%A9%20Bass%C3%A9%20Viande%20et%20Poulet" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiéré Bassé Viande et Poulet', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiéré Mboum Viande</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thi%C3%A9r%C3%A9%20Mboum%20Viande" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiéré Mboum Viande', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Poulet Braisé + frites</h5>
+              <p class="price mb-0">3 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Poulet%20Brais%C3%A9%20%2B%20frites" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Poulet Braisé + frites', 3000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VENDREDI -->
+    <div class="menu-day" id="vendredi" data-day="5">
+      <h2><i class="bi bi-calendar3"></i> Vendredi</h2>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiep Guinar blanc</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thiep%20Guinar%20blanc" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiep Guinar blanc', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiep Dieune rouge avec Diaga</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thiep%20Dieune%20rouge%20avec%20Diaga" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiep Dieune rouge avec Diaga', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Mbakhalou nar</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Mbakhalou%20nar" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Mbakhalou nar', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Kaldou Poisson</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Kaldou%20Poisson" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Kaldou Poisson', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Thiou Boulettes</h5>
+              <p class="price mb-0">2 000 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Thiou%20Boulettes" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Thiou Boulettes', 2000)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Yassa Poulet</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Yassa%20Poulet" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Yassa Poulet', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Couscous Poulet</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Couscous%20Poulet" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Couscous Poulet', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-item">
+            <div>
+              <h5>Filet de sol avec Gambass</h5>
+              <p class="price mb-0">2 500 FCFA</p>
+            </div>
+            <div class="btn-row">
+              <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20Filet%20de%20sol%20avec%20Gambass" class="btn-whatsapp" target="_blank"><i class="bi bi-whatsapp"></i> Commander</a>
+              <button class="btn-cart" onclick="addToCart('Filet de sol avec Gambass', 2500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUS LOCAUX -->
+    <div class="menu-day" id="jus" data-day="0">
+      <h2><i class="bi bi-cup-straw"></i> Jus — Lundi au Vendredi</h2>
+      <div class="row g-3">
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="jus-card">
+            <div class="jus-icon">🥤</div>
+            <h5 style="font-size:0.9rem; font-weight:600;">Bissap</h5>
+            <p class="price" style="font-size:0.85rem; color:#d35400; font-weight:700;">500 FCFA</p>
+            <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20du%20jus%20Bissap" class="btn-whatsapp" target="_blank" style="font-size:0.78rem;"><i class="bi bi-whatsapp"></i> Commander</a>
+            <div>
+              <button class="btn-cart" onclick="addToCart('Jus bissap', 500)"><i class="bi bi-bag-plus"></i></button>
+            </div>
+          </div>
+          
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="jus-card">
+            <div class="jus-icon">🧋</div>
+            <h5 style="font-size:0.9rem; font-weight:600;">Bouye</h5>
+            <p class="price" style="font-size:0.85rem; color:#d35400; font-weight:700;">500 FCFA</p>
+            <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20du%20jus%20Bouye" class="btn-whatsapp" target="_blank" style="font-size:0.78rem;"><i class="bi bi-whatsapp"></i> Commander</a>
+            <div><button class="btn-cart" onclick="addToCart('Jus Bouye', 500)"><i class="bi bi-bag-plus"></i></button></div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="jus-card">
+            <div class="jus-icon">🧃</div>
+            <h5 style="font-size:0.9rem; font-weight:600;">Ditakh</h5>
+            <p class="price" style="font-size:0.85rem; color:#d35400; font-weight:700;">500 FCFA</p>
+            <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20du%20jus%20Ditakh" class="btn-whatsapp" target="_blank" style="font-size:0.78rem;"><i class="bi bi-whatsapp"></i> Commander</a>
+            <button class="btn-cart" onclick="addToCart('Jus Ditakh', 500)"><i class="bi bi-bag-plus"></i></button>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="jus-card">
+            <div class="jus-icon">🍊</div>
+            <h5 style="font-size:0.9rem; font-weight:600;">Orange</h5>
+            <p class="price" style="font-size:0.85rem; color:#d35400; font-weight:700;">500 FCFA</p>
+            <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20du%20jus%20Orange" class="btn-whatsapp" target="_blank" style="font-size:0.78rem;"><i class="bi bi-whatsapp"></i> Commander</a>
+            <div><button class="btn-cart" onclick="addToCart('Jus Ditakh', 500)"><i class="bi bi-bag-plus"></i></button></div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <div class="jus-card">
+            <div class="jus-icon">🫚</div>
+            <h5 style="font-size:0.9rem; font-weight:600;">Gingembre</h5>
+            <p class="price" style="font-size:0.85rem; color:#d35400; font-weight:700;">500 FCFA</p>
+            <a href="https://wa.me/221773124424?text=Je%20veux%20commander%20du%20jus%20Gingembre" class="btn-whatsapp" target="_blank" style="font-size:0.78rem;"><i class="bi bi-whatsapp"></i> Commander</a>
+            <button class="btn-cart" onclick="addToCart('Jus Gingembre', 500)"><i class="bi bi-bag-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PANIER FLOTTANT -->
+  <button id="cart-fab" onclick="openCart()">
+    <i class="bi bi-bag-heart-fill"></i>
+    Mon panier
+    <span id="cart-badge">0</span>
+  </button>
+
+  <!-- MODAL PANIER -->
+  <div class="modal fade" id="cart-modal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-white" id="cartModalLabel"><i class="bi bi-bag-heart-fill me-2"></i>Mon panier</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <div class="modal-body" id="cart-body">
+          <p class="text-muted text-center">Votre panier est vide.</p>
+        </div>
+        <div class="modal-footer flex-column">
+          <div class="d-flex justify-content-between w-100 fw-bold fs-5 mb-2">
+            <span>Total</span>
+            <span id="cart-total" style="color:#d35400;">0 FCFA</span>
+          </div>
+          <a id="cart-whatsapp-btn" href="#" target="_blank" class="btn-whatsapp w-100 justify-content-center" style="display:none; text-align:center; padding:12px;">
+            <i class="bi bi-whatsapp me-2"></i> Envoyer la commande sur WhatsApp
+          </a>
+          <button class="btn btn-sm btn-outline-secondary w-100 mt-2" onclick="clearCart()">Vider le panier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer text-white py-5 mt-5">
+    <div class="container text-center text-md-start">
+      <div class="row g-4">
+
+        <div class="col-md-4 text-center">
+          <img src="logo-resto.jpeg" alt="Logo Ya Salam Traiteur" width="90" class="mb-2 rounded-circle">
+          <h4 class="fw-bold">Ya Salam Traiteur</h4>
+          <p class="text-secondary mb-0">Chez Nogaye</p>
+          <p class="text-secondary" style="font-size:0.85rem;">Cuisine sénégalaise maison</p>
+        </div>
+
+        <div class="col-md-4">
+          <h5 class="fw-bold">Contact</h5>
+          <p class="mb-2"><i class="bi bi-telephone-fill me-2" style="color:#f5c842;"></i>+221 77 312 44 24 / 78 744 15 02</p>
+          <p class="mb-2"><i class="bi bi-envelope-fill me-2" style="color:#f5c842;"></i><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1f667e6c7e737e726b6d7e766b7a6a6d5f78727e7673317c7072">[email&#160;protected]</a></p>
+          <p class="mb-2">
+            <i class="bi bi-whatsapp me-2 text-success"></i>
+            <a href="https://wa.me/221773124424" target="_blank" class="text-decoration-none text-white">Commander sur WhatsApp</a>
+          </p>
+          <p class="mb-2">
+            <i class="bi bi-tiktok me-2 text-success"></i>
+            <a href="https://www.tiktok.com/@yasalamcheznogaye09?_r=1&_t=ZS-94vtOjw4G9v" target="_blank" class="text-decoration-none text-white">@yasalamtraiteur</a>
+          </p>
+        </div>
+
+        <div class="col-md-4">
+          <h5 class="fw-bold">Horaires</h5>
+          <p class="mb-1"><i class="bi bi-clock-fill me-2" style="color:#f5c842;"></i>Lundi – Vendredi</p>
+          <p class="mb-1 text-secondary" style="font-size:0.9rem;">Commandes acceptées le matin</p>
+          <p class="mb-1 text-secondary" style="font-size:0.9rem;">Livraison & retrait sur place</p>
+          <p class="mt-3 mb-1"><i class="bi bi-geo-alt-fill me-2" style="color:#f5c842;"></i>Dakar, Sénégal</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="text-center mt-4 text-secondary">
+      <small>© 2025 Ya Salam Traiteur Chez Nogaye — Tous droits réservés</small>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <script>
+    // === HIGHLIGHT DU JOUR ACTUEL ===
+    const today = new Date().getDay();
+    document.querySelectorAll('.day-nav .nav-link[data-day]').forEach(link => {
+      const d = parseInt(link.getAttribute('data-day'));
+      if (d === today) {
+        link.classList.add('active-day');
+        const section = document.getElementById(link.getAttribute('href').replace('#',''));
+        if (section) section.classList.add('today-section');
+        const banner = document.getElementById('todayBanner');
+        if (banner) {
+          banner.style.display = 'block';
+          banner.innerHTML = `<i class="bi bi-sun-fill me-2"></i>Aujourd'hui c'est <strong>${link.textContent.trim()}</strong> — Commandez vite !`;
+        }
+      }
+    });
+
+    // === PANIER ===
+    let cart = [];
+    let cartModalInstance = null;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      cartModalInstance = new bootstrap.Modal(document.getElementById('cart-modal'));
+    });
+
+    function openCart() {
+      if (!cartModalInstance) {
+        cartModalInstance = new bootstrap.Modal(document.getElementById('cart-modal'));
+      }
+      cartModalInstance.show();
+    }
+
+    function addToCart(name, price) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name, price, qty: 1 });
+      }
+      updateCartUI();
+      const fab = document.getElementById('cart-fab');
+      fab.classList.add('visible');
+      fab.style.transform = 'scale(1.15)';
+      setTimeout(() => fab.style.transform = 'scale(1)', 200);
+    }
+
+    function removeFromCart(name) {
+      cart = cart.filter(i => i.name !== name);
+      updateCartUI();
+      if (cart.length === 0) document.getElementById('cart-fab').classList.remove('visible');
+    }
+
+    function clearCart() {
+      cart = [];
+      updateCartUI();
+      document.getElementById('cart-fab').classList.remove('visible');
+      if (cartModalInstance) cartModalInstance.hide();
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      document.getElementById('cart-badge').textContent = count;
+      document.getElementById('cart-total').textContent = total.toLocaleString('fr-FR') + ' FCFA';
+
+      const body = document.getElementById('cart-body');
+      const waBtn = document.getElementById('cart-whatsapp-btn');
+
+      if (cart.length === 0) {
+        body.innerHTML = '<p class="text-muted text-center py-3">Votre panier est vide.</p>';
+        waBtn.style.display = 'none';
+        return;
+      }
+
+      body.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div>
+            <div style="font-weight:500;">${item.name}</div>
+            <div style="font-size:0.82rem; color:#888;">${item.qty} &times; ${item.price.toLocaleString('fr-FR')} FCFA</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-weight:600; color:#d35400;">${(item.price * item.qty).toLocaleString('fr-FR')} FCFA</span>
+            <button class="remove-btn" onclick="removeFromCart('${item.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">&#x2715;</button>
+          </div>
+        </div>
+      `).join('');
+
+      const msgLines = cart.map(i => `- ${i.name} x${i.qty} (${(i.price * i.qty).toLocaleString('fr-FR')} FCFA)`);
+      const msg = encodeURIComponent('Bonjour ! Je voudrais commander :\n' + msgLines.join('\n') + '\n\nTotal : ' + total.toLocaleString('fr-FR') + ' FCFA');
+      waBtn.href = 'https://wa.me/221773124424?text=' + msg;
+      waBtn.style.display = 'flex';
+    }
+  </script>
+
+</body>
+</html>
